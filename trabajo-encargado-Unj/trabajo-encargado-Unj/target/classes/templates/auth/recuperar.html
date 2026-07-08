@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recuperar Contraseña - HIP URBAN STORE</title>
+</head>
+<body>
+<th:block>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1>Recuperar Contraseña</h1>
+            <p class="subtitulo">Te enviaremos un enlace para restablecer tu contraseña</p>
+
+            <form class="auth-form" method="post" th:action="@{/auth/recuperar}">
+                <div class="campo">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                </div>
+
+                <button type="submit" class="btn btn-auth">Enviar Enlace</button>
+            </form>
+
+            <div class="auth-footer">
+                <p><a th:href="@{/auth/login}">Volver a Iniciar Sesión</a></p>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

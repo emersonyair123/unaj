@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HIP URBAN STORE</title>
+</head>
+<body>
+    <th:block>
+        <!-- SECCIÓN HERO - URBAN STORE -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <div class="hero-badge">20*77</div>
+                        <h1>URBAN STORE</h1>
+                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (anónimo) usó una galera de tipos y los mezcló de tal manera que logró fabricar un libro de muestras tipográficas.</p>
+                        <a href="#" class="btn-hero">Ver más</a>
+                    </div>
+                    <div class="hero-images">
+                        <div class="image-grid">
+                            <div class="img-placeholder img1">
+                                <span>IMAGEN</span>
+                            </div>
+                            <div class="img-placeholder img2">
+                                <span>IMAGEN</span>
+                            </div>
+                            <div class="img-placeholder img3">
+                                <span>IMAGEN</span>
+                            </div>
+                            <div class="img-placeholder img4">
+                                <span>IMAGEN</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN SUBTÍTULO -->
+        <section class="subtitle-section">
+            <div class="container">
+                <h2>SUBTÍTULO</h2>
+                <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN PRODUCTOS EN OFERTA -->
+        <section class="featured-products">
+            <div class="container">
+                <h2>PRODUCTOS EN OFERTA</h2>
+                <div class="products-grid">
+                    <div th:each="producto : ${productosDestacados}" class="product-card">
+                        <div class="product-image">
+                            <!-- Mostrar imagen si existe, sino mostrar placeholder -->
+                            <img th:if="${producto.imagen}" 
+                                th:src="@{/imagenes/{nombre}(nombre=${producto.imagen})}" 
+                                th:alt="${producto.nombre}"
+                                class="product-img">
+                            <div th:unless="${producto.imagen}" class="image-placeholder">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <span class="product-tag">OFERTA</span>
+                        </div>
+                        <div class="product-info">
+                            <h3 th:text="${producto.nombre}">Producto</h3>
+                            <p class="product-desc" th:text="${producto.descripcion}">Descripción</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(4.5)</span>
+                            </div>
+                            <div class="product-actions">
+                                <span class="product-price" th:text="'S/ ' + ${producto.precio}">S/ 0.00</span>
+                                <div class="action-buttons">
+                                    <a th:href="@{/productos/detalle/{id}(id=${producto.id})}" class="btn-ver-mas">Ver más</a>
+                                    <form th:action="@{/carrito/agregar}" method="post" class="form-agregar-carrito">
+                                        <input type="hidden" name="productoId" th:value="${producto.id}">
+                                        <input type="hidden" name="cantidad" value="1">
+                                        <button type="submit" class="btn-agregar-carrito-small">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN RESULTADOS DE BÚSQUEDA -->
+        <div th:if="${resultados}" class="search-results">
+            <div class="container">
+                <h2>Resultados de búsqueda: "<span th:text="${termino}">término</span>"</h2>
+                <div class="products-grid">
+                    <div th:each="producto : ${resultados}" class="product-card">
+                        <div class="product-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-box"></i>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 th:text="${producto.nombre}">Producto</h3>
+                            <p class="product-desc" th:text="${producto.descripcion}">Descripción</p>
+                            <div class="product-actions">
+                                <span class="product-price" th:text="'S/ ' + ${producto.precio}">S/ 0.00</span>
+                                <div class="action-buttons">
+                                    <a th:href="@{/productos/detalle/{id}(id=${producto.id})}" class="btn-ver-mas">Ver más</a>
+                                    <form th:action="@{/carrito/agregar}" method="post" class="form-agregar-carrito">
+                                        <input type="hidden" name="productoId" th:value="${producto.id}">
+                                        <input type="hidden" name="cantidad" value="1">
+                                        <button type="submit" class="btn-agregar-carrito-small">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html>

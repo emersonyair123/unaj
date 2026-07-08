@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${producto.nombre} + ' - HIP URBAN STORE'">Detalle Producto</title>
+</head>
+<body>
+    <th:block>
+        <div class="detalle-container">
+            <div class="detalle-grid">
+                <!-- Imagen del producto -->
+                <div class="detalle-imagen">
+                    <div class="imagen-principal">
+                        <img th:if="${producto.imagen}" 
+                            th:src="@{/imagenes/{nombre}(nombre=${producto.imagen})}" 
+                            th:alt="${producto.nombre}"
+                            class="detalle-imagen-principal">
+                        <div th:unless="${producto.imagen}" class="image-placeholder-large">
+                            <i class="fas fa-box"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Información del producto -->
+                <div class="detalle-info">
+                    <nav class="breadcrumb">
+                        <a th:href="@{/}">Inicio</a> &gt;
+                        <a th:href="@{/productos}">Productos</a> &gt;
+                        <span th:text="${producto.nombre}">Producto</span>
+                    </nav>
+                    
+                    <h1 th:text="${producto.nombre}">Nombre Producto</h1>
+                    <p class="detalle-categoria" th:text="'Categoría: ' + ${producto.categoria.nombre}">Categoría</p>
+                    
+                    <div class="detalle-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(4.5 - 120 opiniones)</span>
+                    </div>
+                    
+                    <div class="detalle-precio">
+                        <span class="precio-actual" th:text="'S/ ' + ${producto.precio}">S/ 0.00</span>
+                        <span class="precio-anterior" th:text="'S/ ' + ${#numbers.formatDecimal(producto.precio * 1.2, 0, 'COMMA', 2, 'POINT')}">S/ 0.00</span>
+                        <span class="descuento">-20%</span>
+                    </div>
+                    
+                    <div class="detalle-stock">
+                        <span th:text="'Stock disponible: ' + ${producto.stock} + ' unidades'">Stock: 0</span>
+                        <span class="stock-status" th:if="${producto.stock > 0}" style="color: #4CAF50;">✓ Disponible</span>
+                        <span class="stock-status" th:unless="${producto.stock > 0}" style="color: #f44336;">✗ Agotado</span>
+                    </div>
+                    
+                    <div class="detalle-descripcion">
+                        <h3>Descripción</h3>
+                        <p th:text="${producto.descripcion}">Descripción del producto</p>
+                    </div>
+                    
+                    <div class="detalle-acciones">
+                        <form th:action="@{/carrito/agregar}" method="post" class="form-agregar">
+                            <input type="hidden" name="productoId" th:value="${producto.id}">
+                            <div class="cantidad-selector">
+                                <button type="button" onclick="cambiarCantidad(-1)">-</button>
+                                <input type="number" id="cantidad" name="cantidad" value="1" min="1" max="${producto.stock}">
+                                <button type="button" onclick="cambiarCantidad(1)">+</button>
+                            </div>
+                            <button type="submit" class="btn-agregar-carrito" th:disabled="${producto.stock <= 0}">
+                                <i class="fas fa-shopping-cart"></i> Añadir al Carrito
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="detalle-extras">
+                        <div class="extra-item">
+                            <i class="fas fa-truck"></i>
+                            <span>Envío gratis en compras mayores a S/ 200</span>
+                        </div>
+                        <div class="extra-item">
+                            <i class="fas fa-undo"></i>
+                            <span>Devoluciones hasta 30 días</span>
+                        </div>
+                        <div class="extra-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Garantía de 1 año</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Productos relacionados -->
+        <div class="productos-relacionados">
+            <div class="container">
+                <h2>Productos Relacionados</h2>
+                <div class="products-grid">
+                    <div th:each="prod : ${productosRelacionados}" class="product-card">
+                        <div class="product-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-box"></i>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 th:text="${prod.nombre}">Producto</h3>
+                            <p class="product-desc" th:text="${prod.descripcion}">Descripción</p>
+                            <div class="product-actions">
+                                <span class="product-price" th:text="'S/ ' + ${prod.precio}">S/ 0.00</span>
+                                <div class="action-buttons">
+                                    <a th:href="@{/productos/detalle/{id}(id=${prod.id})}" class="btn-ver-mas">Ver más</a>
+                                    <form th:action="@{/carrito/agregar}" method="post" class="form-agregar-carrito">
+                                        <input type="hidden" name="productoId" th:value="${prod.id}">
+                                        <input type="hidden" name="cantidad" value="1">
+                                        <button type="submit" class="btn-agregar-carrito-small">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            function cambiarCantidad(delta) {
+                const input = document.getElementById('cantidad');
+                let valor = parseInt(input.value) + delta;
+                const max = parseInt(input.getAttribute('max'));
+                if (valor < 1) valor = 1;
+                if (valor > max) valor = max;
+                input.value = valor;
+            }
+        </script>
+    </th:block>
+</body>
+</html>

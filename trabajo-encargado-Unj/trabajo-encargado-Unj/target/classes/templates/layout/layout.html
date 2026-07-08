@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo} ?: 'HIP URBAN STORE'">HIP URBAN STORE</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<!-- HEADER -->
+<header>
+    <div class="header-top">
+        <div class="container">
+            <div class="logo">
+                <h1>HIP URBAN STORE</h1>
+                <span class="slogan">ST.LST SINCE 1999</span>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <form th:action="@{/buscar}" method="get">
+                        <input type="text" name="q" placeholder="Buscar productos..." th:value="${termino}">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="user-actions">
+                    <a th:href="@{/auth/login}"><i class="fas fa-user"></i> Ingresar</a>
+                    <a th:href="@{/auth/registro}"><i class="fas fa-user-plus"></i> Registro</a>
+                    <a th:href="@{/carrito}" class="carrito-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="carrito-badge" th:text="${carritoSize}">0</span>
+                    </a>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a th:href="@{/}">INICIO</a></li>
+                <li><a th:href="@{/categorias}">CATEGORÍAS</a></li>
+                <li><a th:href="@{/productos}">PRODUCTOS</a></li>
+                <li><a th:href="@{/info/nosotros}">NOSOTROS</a></li>
+                <li><a th:href="@{/info/contacto}">CONTACTO</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main>
+    <div th:replace="~{${contenido}}"></div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>HIP URBAN STORE</h3>
+                <p>Tu tienda de tecnología y estilo urbano desde 1999</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Servicio al Cliente</h4>
+                <ul>
+                    <li><a href="#">Centro de Ayuda</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Política de Devoluciones</a></li>
+                    <li><a href="#">Garantía</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces de Tienda</h4>
+                <ul>
+                    <li><a th:href="@{/productos}">Productos</a></li>
+                    <li><a th:href="@{/categorias}">Categorías</a></li>
+                    <li><a th:href="@{/info/nosotros}">Nosotros</a></li>
+                    <li><a th:href="@{/info/contacto}">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Métodos de Pago</h4>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+                <div class="newsletter">
+                    <h4>Newsletter</h4>
+                    <input type="email" placeholder="Tu email">
+                    <button>Suscribir</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 HIP URBAN STORE - Todos los derechos reservados</p>
+        </div>
+    </div>
+</footer>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

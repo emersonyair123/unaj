@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacto - TEC STORE</title>
+</head>
+<body>
+<th:block>
+    <div class="info-container">
+        <h1>Contacto</h1>
+
+        <div class="contacto-grid">
+            <div class="contacto-formulario">
+                <h2>Envíanos un mensaje</h2>
+
+                <form class="contacto-form" method="post" th:action="@{/info/contacto}">
+                    <div class="campo">
+                        <label for="nombre_contacto">Nombre Completo</label>
+                        <input type="text" id="nombre_contacto" name="nombre" placeholder="Tu nombre" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="email_contacto">Correo Electrónico</label>
+                        <input type="email" id="email_contacto" name="email" placeholder="tu@correo.com" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="asunto">Asunto</label>
+                        <select id="asunto" name="asunto" required>
+                            <option value="">Seleccionar asunto</option>
+                            <option value="consulta">Consulta general</option>
+                            <option value="producto">Información de producto</option>
+                            <option value="pedido">Estado de pedido</option>
+                            <option value="reclamo">Reclamo o sugerencia</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">Enviar Mensaje</button>
+                </form>
+            </div>
+
+            <div class="contacto-info">
+                <h2>Información de Contacto</h2>
+
+                <div class="info-item">
+                    <span class="icono">📍</span>
+                    <div>
+                        <strong>Dirección</strong>
+                        <p>Av. Universidad S/N, Juliaca, Puno - Perú</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="icono">📞</span>
+                    <div>
+                        <strong>Teléfono</strong>
+                        <p>+51 987 654 321</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="icono">✉️</span>
+                    <div>
+                        <strong>Email</strong>
+                        <p>info@tecstore.com</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="icono">🕐</span>
+                    <div>
+                        <strong>Horario de Atención</strong>
+                        <p>Lunes a Viernes: 9:00 - 18:00</p>
+                        <p>Sábados: 9:00 - 13:00</p>
+                    </div>
+                </div>
+
+                <div class="redes-sociales">
+                    <h3>Síguenos</h3>
+                    <div class="redes">
+                        <a href="#" class="red">Facebook</a>
+                        <a href="#" class="red">Instagram</a>
+                        <a href="#" class="red">Twitter</a>
+                        <a href="#" class="red">YouTube</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

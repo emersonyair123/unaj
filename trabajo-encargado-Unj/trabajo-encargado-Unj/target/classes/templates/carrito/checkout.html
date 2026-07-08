@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout - HIP URBAN STORE</title>
+</head>
+<body>
+    <th:block>
+        <div class="checkout-container">
+            <h1>Finalizar Compra</h1>
+            
+            <div class="checkout-grid">
+                <div class="checkout-formulario">
+                    <h2>Datos de Envío</h2>
+                    <form th:action="@{/carrito/checkout}" method="post">
+                        <div class="campo">
+                            <label for="nombre">Nombre Completo</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        
+                        <div class="campo">
+                            <label for="direccion">Dirección</label>
+                            <input type="text" id="direccion" name="direccion" required>
+                        </div>
+                        
+                        <div class="campo">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+                        
+                        <div class="campo">
+                            <label for="metodo_pago">Método de Pago</label>
+                            <select id="metodo_pago" name="metodo_pago" required>
+                                <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+                                <option value="yape">Yape</option>
+                                <option value="plin">Plin</option>
+                                <option value="transferencia">Transferencia Bancaria</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-checkout-final">Confirmar Compra</button>
+                    </form>
+                </div>
+                
+                <div class="checkout-resumen">
+                    <h2>Resumen del Pedido</h2>
+                    <div class="checkout-items">
+                        <div th:each="item : ${carrito}" class="checkout-item">
+                            <span class="item-nombre" th:text="${item.producto.nombre}">Producto</span>
+                            <span class="item-cantidad" th:text="'x' + ${item.cantidad}">x1</span>
+                            <span class="item-precio" th:text="'S/ ' + ${item.subtotal}">S/ 0.00</span>
+                        </div>
+                    </div>
+                    <div class="checkout-total">
+                        <span>Total a pagar:</span>
+                        <span class="total-precio" th:text="'S/ ' + ${total}">S/ 0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html>

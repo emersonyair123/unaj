@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEC STORE</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- HEADER -->
+<header th:fragment="header">
+    <nav>
+        <div class="logo">
+            <h1>TEC STORE</h1>
+        </div>
+        <div class="nav-links">
+            <a th:href="@{/inicio}">Inicio</a>
+            <a th:href="@{/categorias}">Categorías</a>
+            <a th:href="@{/productos}">Productos</a>
+            <a th:href="@{/info/nosotros}">Nosotros</a>
+            <a th:href="@{/info/contacto}">Contacto</a>
+            <a th:href="@{/auth/login}" class="btn-login">Ingresar</a>
+            <a th:href="@{/auth/registro}" class="btn-registro">Registro</a>
+        </div>
+    </nav>
+</header>
+
+<!-- FOOTER -->
+<footer th:fragment="footer">
+    <div class="footer-content">
+        <p>&copy; 2026 TEC STORE - Universidad Nacional de Juliaca</p>
+    </div>
+</footer>
+</body>
+</html>

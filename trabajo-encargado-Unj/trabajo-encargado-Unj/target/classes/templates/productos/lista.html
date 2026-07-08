@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Productos</title>
+</head>
+<body>
+    <th:block>
+        <div class="tabla-container">
+            <h1>Gestión de Productos</h1>
+            
+            <div class="acciones">
+                <a th:href="@{/productos/nuevo}" class="btn">Nuevo Producto</a>
+            </div>
+            
+            <div th:if="${exito}" class="mensaje-exito" th:text="${exito}">Mensaje de éxito</div>
+            <div th:if="${error}" class="mensaje-error" th:text="${error}">Mensaje de error</div>
+            
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Categoría</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="producto : ${productos}">
+                        <td>
+                            <img th:if="${producto.imagen}" 
+                                 th:src="@{/imagenes/{nombre}(nombre=${producto.imagen})}" 
+                                 th:alt="${producto.nombre}"
+                                 style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                            <span th:unless="${producto.imagen}" style="color: #ccc;">Sin imagen</span>
+                        </td>
+                        <td th:text="${producto.id}">1</td>
+                        <td th:text="${producto.nombre}">Nombre</td>
+                        <td th:text="${producto.descripcion}">Descripción</td>
+                        <td th:text="'S/ ' + ${producto.precio}">S/ 0.00</td>
+                        <td th:text="${producto.stock}">0</td>
+                        <td th:text="${producto.categoria.nombre}">Categoría</td>
+                        <td>
+                            <a th:href="@{/productos/detalle/{id}(id=${producto.id})}" class="btn-editar">Ver</a>
+                            <a th:href="@{/productos/editar/{id}(id=${producto.id})}" class="btn-editar">Editar</a>
+                            <a th:href="@{/productos/eliminar/{id}(id=${producto.id})}" class="btn-eliminar"
+                               onclick="return confirm('¿Eliminar este producto?')">Eliminar</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${productos.isEmpty()}">
+                        <td colspan="8">No hay productos registrados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </th:block>
+</body>
+</html>
